@@ -22,7 +22,7 @@ docker-compose up
 
 ## Authentication
 
-In order to log into API use auth/login path with this parametrs
+In order to log into API use /auth/login path with this parametrs
 
 request 
 
