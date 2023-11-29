@@ -18,7 +18,7 @@ ActiveRecord::Schema[7.1].define(version: 20_231_127_185_635) do
 
   create_table 'geolocations', force: :cascade do |t|
     t.string 'address'
-    t.jsonb 'geolocation', default: {}
+    t.jsonb 'location', default: {}
     t.datetime 'created_at', null: false
     t.datetime 'updated_at', null: false
   end

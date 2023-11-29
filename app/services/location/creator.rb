@@ -5,7 +5,7 @@ module Location
     include Interactor
 
     def call
-      geolocation = Geolocation.new(address:, geolocation: get_geolocation)
+      geolocation = Geolocation.new(address:, location: get_location)
       if geolocation.save
         context.geolocation = geolocation
       else
@@ -17,7 +17,7 @@ module Location
 
     private
 
-    def get_geolocation
+    def get_location
       api_client.get_location(resolved_adress)
     rescue GeneralApiExceptions::ResponseError => e
       context.fail!(errors: [e.message])

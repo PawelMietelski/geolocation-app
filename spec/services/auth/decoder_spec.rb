@@ -38,7 +38,7 @@ describe Auth::Decoder do
       end
 
       it 'fails' do
-        expect(context.errors).to eq("JWT::DecodeError")
+        expect(context.errors).to eq('JWT::DecodeError')
         expect(context).to be_a_failure
       end
     end
