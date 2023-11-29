@@ -32,8 +32,12 @@ module Location
       context.fail!(errors: ['Invalid URL or ip address'])
     end
 
+    def valid_ip?
+      IPAddress.valid_ipv4?(address) || IPAddress.valid_ipv6?(address)
+    end
+
     def resolved_address
-      return address if IPAddress.valid_ipv4?(address)
+      return address if valid_ip?
       return resolve_address! if valid_url?
 
       context.fail!(errors: ['Invalid URL or ip address'])
