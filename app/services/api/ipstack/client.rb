@@ -28,7 +28,7 @@ module Api
       def handle_timeouts
         yield
       rescue Net::OpenTimeout, Net::ReadTimeout
-        {}
+        raise GeneralApiExceptions::RequestTimeoutError
       end
 
       def request(http_method:, endpoint:, params: {})

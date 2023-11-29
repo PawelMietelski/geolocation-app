@@ -28,4 +28,10 @@ module GeneralApiExceptions
       super(:bad_request, 400, 'Bad request')
     end
   end
+
+  class RequestTimeoutError < ResponseError
+    def initialize
+      super(:bad_request, 408, 'Request Timeout')
+    end
+  end
 end
