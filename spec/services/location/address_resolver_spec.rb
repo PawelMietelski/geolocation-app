@@ -4,7 +4,7 @@ require 'rails_helper'
 
 describe Location::AddressResolver do
   describe '#call' do
-    context 'creator has valid parameters' do
+    context 'resolver has valid parameters' do
       let(:address) { 'https://ipstack.com/' }
 
       subject(:context) do
@@ -19,7 +19,7 @@ describe Location::AddressResolver do
         expect(context.resolved_adress).to be_present
       end
     end
-    context 'creator has invalid parameters' do
+    context 'resolver has invalid parameters' do
       let(:address) { 'invalid_url' }
 
       subject(:context) do

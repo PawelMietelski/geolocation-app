@@ -37,7 +37,7 @@ describe Auth::Authenticator do
       end
 
       it 'fails' do
-        expect{ context }.to raise_error(execption)
+        expect { context }.to raise_error(execption)
       end
     end
   end
