@@ -5,6 +5,7 @@ module Auth
     include Interactor
 
     def call
+      authenticate!
       context.token = token
     end
 
@@ -13,11 +14,13 @@ module Auth
     private
 
     def token
-      Auth::JsonWebToken.encode(access_key: access_key)
+      Auth::JsonWebToken.encode(access_key:)
     end
 
     def authenticate!
-      return if access_key.eql? ENV['APPLICATION_ACCESS_KEY']
+      return if access_key.eql?(ENV['APPLICATION_ACCESS_KEY'])
+
+      context.fail!
       raise GeneralApiExceptions::UnauthorizedError
     end
   end

@@ -5,6 +5,7 @@ module Api
     class Client
       include HTTParty
       include HttpStatusCodes
+      include ApiExecptions
       base_uri 'http://api.ipstack.com/'
       attr_reader :access_key
 
@@ -43,7 +44,7 @@ module Api
       end
 
       def error_class(response)
-        Api::Ipstack::ApiExecptions.const_get(api_error(response)).new
+        ApiExecptions.const_get(api_error(response)).new
       end
     end
   end

@@ -19,7 +19,7 @@ module GeneralApiExceptions
 
   class UnauthorizedError < ResponseError
     def initialize
-      super(:not_found, 403, 'Unauthorized')
+      super(:unauthorized, 401, 'Unauthorized')
     end
   end
 end

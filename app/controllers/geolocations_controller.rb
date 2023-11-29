@@ -2,9 +2,10 @@
 
 class GeolocationsController < ApplicationController
   before_action :authorize_request
-  
+
   def create
-    result = Location::LocationOrganizer.call(address: geolocation_params[:address])
+    result = Location::LocationOrganizer.call(address: geolocation_params[:address],
+                                              api_client: Api::Ipstack::Client.new)
     if result.success?
       render json: result.geolocation, status: :ok
     else
@@ -26,6 +27,7 @@ class GeolocationsController < ApplicationController
   def geolocation
     geolocation = Geolocation.find_by(address: geolocation_params[:address])
     raise GeneralApiExceptions::NotFoundError if geolocation.nil?
+
     geolocation
   end
 

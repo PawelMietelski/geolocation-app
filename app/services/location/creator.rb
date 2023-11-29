@@ -13,7 +13,7 @@ module Location
       end
     end
 
-    delegate :address, :resolved_adress, to: :context
+    delegate :address, :resolved_adress, :api_client, to: :context
 
     private
 
@@ -21,10 +21,6 @@ module Location
       api_client.get_location(resolved_adress)
     rescue GeneralApiExceptions::ResponseError => e
       context.fail!(errors: [e.message])
-    end
-
-    def api_client
-      @api_client ||= Api::Ipstack::Client.new
     end
   end
 end

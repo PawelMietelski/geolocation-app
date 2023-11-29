@@ -2,5 +2,6 @@
 
 FactoryBot.define do
   factory :geolocation do
+    address { 'https://api.rubyonrails.org/' }
   end
 end

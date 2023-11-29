@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'resolv'
+
 module Location
   class AddressResolver
     include Interactor

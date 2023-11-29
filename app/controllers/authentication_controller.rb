@@ -5,11 +5,7 @@ class AuthenticationController < ApplicationController
 
   def login
     result = Auth::Authenticator.call(access_key: login_params[:access_key])
-    if result.success?
-      render json: { token: result.token }, status: :ok
-    else
-      raise GeneralApiExceptions::UnauthorizedError
-    end
+    render json: { token: result.token }, status: :ok
   end
 
   private
