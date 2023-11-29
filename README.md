@@ -1,24 +1,41 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+How to run geolocation app 
 
-Things you may want to cover:
+## Installation
 
-* Ruby version
+1. create .env file and add variables 
 
-* System dependencies
+```bash
+IPSTACK_ACCESS_KEY=
+APPLICATION_SECRET_KEY=
+APPLICATION_ACCESS_KEY=
+```
 
-* Configuration
+2. run docker 
 
-* Database creation
+```bash
+docker-compose build
+docker-compose run web rake db:setup
+docker-compose up
+```
 
-* Database initialization
+## Authentication
 
-* How to run the test suite
+In order to log into API use auth/login path with this parametrs
 
-* Services (job queues, cache servers, search engines, etc.)
+request 
 
-* Deployment instructions
+```json
+{
+    "authentication": { "access_key": "APPLICATION_ACCESS_KEY"  }
+}
+```
 
-* ...
+response 
+
+```json
+{
+    "token": "generated_api_token"
+}
+```

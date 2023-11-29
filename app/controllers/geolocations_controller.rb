@@ -7,7 +7,7 @@ class GeolocationsController < ApplicationController
     result = Location::LocationOrganizer.call(address: geolocation_params[:address],
                                               api_client: Api::Ipstack::Client.new)
     if result.success?
-      render json: result.geolocation, status: :ok
+      render json: { geolocation: result.geolocation }, status: :ok
     else
       render json: { errors: result.errors }, status: :unprocessable_entity
     end
@@ -19,7 +19,7 @@ class GeolocationsController < ApplicationController
   end
 
   def show
-    render json: geolocation, status: :ok
+    render json: { geolocation: }, status: :ok
   end
 
   private
