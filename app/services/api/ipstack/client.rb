@@ -7,21 +7,29 @@ module Api
       include HttpStatusCodes
       include ApiExecptions
       base_uri 'http://api.ipstack.com/'
-      attr_reader :access_key
-
-      def initialize
-        @access_key = ENV['IPSTACK_ACCESS_KEY']
-      end
+      default_timeout 1
 
       def get_location(adress)
-        request(
-          http_method: :get,
-          endpoint: "/#{adress}",
-          params: { query: { access_key: } }
-        )
+        handle_timeouts do
+          request(
+            http_method: :get,
+            endpoint: "/#{adress}",
+            params: { query: { access_key: } }
+          )
+        end
       end
 
       private
+
+      def access_key
+        ENV['IPSTACK_ACCESS_KEY']
+      end
+
+      def handle_timeouts
+        yield
+      rescue Net::OpenTimeout, Net::ReadTimeout
+        {}
+      end
 
       def request(http_method:, endpoint:, params: {})
         response = self.class.public_send(http_method, endpoint, params)
