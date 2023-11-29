@@ -6,6 +6,7 @@ class ApplicationController < ActionController::API
   def authorize_request
     result = Auth::Decoder.call(request:)
     return if result.success?
+
     raise GeneralApiExceptions::UnauthorizedError
   end
 end

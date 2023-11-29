@@ -12,6 +12,6 @@ Rails.application.routes.draw do
   get '/geolocations/show', to: 'geolocations#show'
   delete '/geolocations/destroy', to: 'geolocations#destroy'
   post '/auth/login', to: 'authentication#login'
-  
+
   resources :geolocations, only: %i[create]
 end
