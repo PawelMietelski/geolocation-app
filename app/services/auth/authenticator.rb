@@ -19,8 +19,6 @@ module Auth
 
     def authenticate!
       return if access_key.eql?(ENV['APPLICATION_ACCESS_KEY'])
-
-      context.fail!
       raise GeneralApiExceptions::UnauthorizedError
     end
   end

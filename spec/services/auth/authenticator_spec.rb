@@ -26,6 +26,7 @@ describe Auth::Authenticator do
 
     context 'access_key is invalid' do
       let(:access_key) { double('wrong_key') }
+      let(:execption) { GeneralApiExceptions::UnauthorizedError }
 
       before do
         allow(access_key).to receive(:eql?).and_return(false)
@@ -36,7 +37,7 @@ describe Auth::Authenticator do
       end
 
       it 'fails' do
-        expect(context).to be_a_failure
+        expect{ context }.to raise_error(execption)
       end
     end
   end
