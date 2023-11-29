@@ -19,7 +19,7 @@ RSpec.describe 'Geolocations', type: :request do
     context 'record exists in db' do
       let(:geolocation) { create(:geolocation) }
       it 'gets geolocation' do
-        get '/geolocations/show', params: { address: geolocation.address },
+        get '/geolocations/show', params: { geolocation: { address: geolocation.address } },
                                   headers: { 'Authorization' => "Bearer #{access_token}" }
         expect(response).to have_http_status(:ok)
         expect(response.body).to include(geolocation.address)
@@ -27,7 +27,7 @@ RSpec.describe 'Geolocations', type: :request do
     end
     context 'record does not exists in db' do
       it 'it returns 404' do
-        get '/geolocations/show', params: { address: 'address' },
+        get '/geolocations/show', params: { geolocation: { address: 'address' } },
                                   headers: { 'Authorization' => "Bearer #{access_token}" }
         expect(response).to have_http_status(:not_found)
         expect(response.body).to include('Record not found')
@@ -35,7 +35,7 @@ RSpec.describe 'Geolocations', type: :request do
     end
     context 'access_token is not valid' do
       it 'it returns 401' do
-        get '/geolocations/show', params: { address: 'address' },
+        get '/geolocations/show', params: { geolocation: { address: 'address' } },
                                   headers: { 'Authorization' => "Bearer #{invalid_token}" }
         expect(response).to have_http_status(:unauthorized)
         expect(response.body).to include('Unauthorized')
@@ -45,14 +45,14 @@ RSpec.describe 'Geolocations', type: :request do
       context 'record exists in db' do
         let(:geolocation) { create(:geolocation) }
         it 'destroy geolocation' do
-          delete '/geolocations/destroy', params: { address: geolocation.address },
+          delete '/geolocations/destroy', params: { geolocation: { address: geolocation.address } },
                                           headers: { 'Authorization' => "Bearer #{access_token}" }
           expect(response).to have_http_status(:no_content)
         end
       end
       context 'record does not exists in db' do
         it 'it returns 404' do
-          delete '/geolocations/destroy', params: { address: 'address' },
+          delete '/geolocations/destroy', params: { geolocation: { address: 'address' } },
                                           headers: { 'Authorization' => "Bearer #{access_token}" }
           expect(response).to have_http_status(:not_found)
           expect(response.body).to include('Record not found')
@@ -60,7 +60,7 @@ RSpec.describe 'Geolocations', type: :request do
       end
       context 'access_token is not valid' do
         it 'it returns 401' do
-          delete '/geolocations/destroy', params: { address: 'address' },
+          delete '/geolocations/destroy', params: { geolocation: { address: 'address' } },
                                           headers: { 'Authorization' => "Bearer #{invalid_token}" }
           expect(response).to have_http_status(:unauthorized)
           expect(response.body).to include('Unauthorized')
@@ -70,7 +70,7 @@ RSpec.describe 'Geolocations', type: :request do
         context 'address is correct' do
           let(:address) { 'https://api.rubyonrails.org/' }
           it 'creates geolocation' do
-            post '/geolocations', params: { address: },
+            post '/geolocations', params: { geolocation: { address: } },
                                   headers: { 'Authorization' => "Bearer #{access_token}" }
             expect(response).to have_http_status(:ok)
             expect(response.body).to include(address)
@@ -80,7 +80,7 @@ RSpec.describe 'Geolocations', type: :request do
         context 'address is not correct' do
           let(:invalid_address) { '12345' }
           it 'it returns 422' do
-            post '/geolocations', params: { address: invalid_address },
+            post '/geolocations', params: { geolocation: { address: invalid_address } },
                                   headers: { 'Authorization' => "Bearer #{access_token}" }
             expect(response).to have_http_status(:unprocessable_entity)
             expect(response.body).to include('Invalid URL or ip address')
@@ -89,7 +89,7 @@ RSpec.describe 'Geolocations', type: :request do
 
         context 'access_token is not valid' do
           it 'it returns 401' do
-            post '/geolocations', params: { address: 'address' },
+            post '/geolocations', params: { geolocation: { address: 'address' } },
                                   headers: { 'Authorization' => "Bearer #{invalid_token}" }
             expect(response).to have_http_status(:unauthorized)
             expect(response.body).to include('Unauthorized')

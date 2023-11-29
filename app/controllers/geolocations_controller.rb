@@ -32,6 +32,6 @@ class GeolocationsController < ApplicationController
   end
 
   def geolocation_params
-    params.permit(:address)
+    params.require(:geolocation).permit(:address)
   end
 end

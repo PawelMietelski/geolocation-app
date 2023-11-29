@@ -11,6 +11,6 @@ class AuthenticationController < ApplicationController
   private
 
   def login_params
-    params.permit(:access_key)
+    params.require(:authentication).permit(:access_key)
   end
 end

@@ -22,4 +22,10 @@ module GeneralApiExceptions
       super(:unauthorized, 401, 'Unauthorized')
     end
   end
+
+  class BadRequestError < ResponseError
+    def initialize
+      super(:unauthorized, 400, 'Bad request')
+    end
+  end
 end
