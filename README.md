@@ -1,6 +1,6 @@
 # README
 
-How to run geolocation app 
+The Geolocation App is a RESTful service that allows users to retrieve geolocation data based on an IP address or URL. This API leverages IPStack, to fetch geographic information, and store it in a database.
 
 ## Installation
 
