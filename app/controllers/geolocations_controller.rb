@@ -27,7 +27,6 @@ class GeolocationsController < ApplicationController
   def geolocation
     geolocation = Geolocation.find_by(address: geolocation_params[:address])
     raise GeneralApiExceptions::NotFoundError if geolocation.nil?
-
     geolocation
   end
 
